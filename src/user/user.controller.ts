@@ -135,4 +135,35 @@ const me = async (req: Request, res: Response) => {
     }
 };
 
-export const UserController = { registerUser, loginUser, me };
+const deleteAllUser = async (req: Request, res: Response) => {
+    try {
+        const deleteUser = await user.deleteMany();
+        if (deleteAllUser) {
+            return Responser({
+                res,
+                status: 200,
+                body: deleteAllUser,
+                message: 'Delete Success',
+                devMessage: '',
+            });
+        } else {
+            return Responser({
+                res,
+                message: 'User Delete Failed',
+                body: null,
+                devMessage: null,
+                status: 400,
+            });
+        }
+    } catch (error) {
+        return Responser({
+            res,
+            message: error,
+            body: null,
+            devMessage: null,
+            status: 400,
+        });
+    }
+};
+
+export const UserController = { registerUser, loginUser, me, deleteAllUser };

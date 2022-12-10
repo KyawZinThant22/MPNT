@@ -11,5 +11,6 @@ const userRoute = Router();
 userRoute.post('/register', registerValidator, UserController.registerUser);
 userRoute.post('/login', loginValidator, UserController.loginUser);
 userRoute.get('/me', authenticateToken, UserController.me);
+userRoute.post('/deleteAll', authenticateToken, UserController.deleteAllUser);
 
 export default userRoute;
