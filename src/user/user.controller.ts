@@ -106,6 +106,9 @@ const me = async (req: Request, res: Response) => {
             where: {
                 id: res.locals.user.id,
             },
+            include: {
+                posts: true,
+            },
         });
         if (userData) {
             return Responser({

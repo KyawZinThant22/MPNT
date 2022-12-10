@@ -22,7 +22,7 @@ model user {
 
 model Post {
   id         String   @id @default(uuid())
-  title      String
+  title      String  
   content    String
   created_at DateTime @default(now())
   author     user     @relation(fields: [authorId], references: [id])

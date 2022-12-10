@@ -28,6 +28,7 @@ export class User {
                     passwrod: hash,
                 },
             })
+
             .then((data) => callback(null, data))
             .catch((err) => callback(err, null));
     }
