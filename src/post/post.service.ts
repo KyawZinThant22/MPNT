@@ -8,7 +8,7 @@ export class Post {
         await post
             .findMany({
                 orderBy: {
-                    created_at: 'asc',
+                    created_at: 'desc',
                 },
             })
             .then((data) => {

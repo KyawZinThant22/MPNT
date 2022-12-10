@@ -20,17 +20,30 @@ export class User {
         }
         const salt = await bcrypt.genSalt(saltRounds);
         const hash = bcrypt.hashSync(password, salt);
-        await user
-            .create({
-                data: {
-                    email: email,
-                    userName: name,
-                    passwrod: hash,
-                },
-            })
 
-            .then((data) => callback(null, data))
-            .catch((err) => callback(err, null));
+        const resData = await user.create({
+            data: {
+                email: email,
+                userName: name,
+                passwrod: hash,
+            },
+        });
+
+        if (resData) {
+            const token = jwt.sign(
+                {
+                    id: resData?.id.toString(),
+                },
+                process.env.TOKEN_SECRET || 'KZT',
+                { expiresIn: '12hr' }
+            );
+            callback(null, { ...resData, token: token });
+        } else {
+            callback('', null);
+        }
+
+        // .then((data) => callback(null, data))
+        // .catch((err) => callback(err, null));
     }
 
     async Login({ email, password, callback }: ILogin) {
